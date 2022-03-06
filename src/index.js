@@ -24,7 +24,7 @@ const submitHandler = (event) => {
 const funcForPromise = (name) => {
     fetchCards(name)
         .then(result => cardConstructor(result))
-        .catch(error => console.log(error))           
+        .catch(error => Notify.failure("Sorry, there are no images matching your search query. Please try again."))           
 };
 
 
@@ -48,7 +48,7 @@ const cardConstructor = (value) => {
   </div>
 </div>`).join("");
     
-   galleryEl.insertAdjacentHTML("beforeend", makeCard);
+    galleryEl.insertAdjacentHTML("beforeend", makeCard);
 };
 
 
