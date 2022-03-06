@@ -45,3 +45,22 @@ ul {
 
   cursor: pointer;
 }
+
+/* todo Gallery Cards */
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.photo-card {
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: calc((100% - 80px) / 4);
+}
+
+.info {
+}
+
+.info-item {
+}
