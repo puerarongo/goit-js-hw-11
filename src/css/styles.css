@@ -10,8 +10,38 @@ body {
   background-color: #fafafa;
   color: #212121;
   line-height: 1.5;
+  margin: 0;
 }
 
 ul {
   list-style: none;
+}
+
+.header {
+  height: 80px;
+  padding-top: 25px;
+  background: rgb(23, 69, 218);
+}
+
+/* * Form selectors */
+
+.search-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form__input {
+  padding: 8px;
+  width: 250px;
+  border-right: 0;
+  border-radius: 5px 0 0 5px;
+}
+
+.form__button {
+  padding: 8px;
+  border-left: 0;
+  border-radius: 0 5px 5px 0;
+
+  cursor: pointer;
 }
