@@ -51,7 +51,7 @@ const funcForPromise = async (name, counter) => {
     const galleryCard = await fetchCards(name, counter);
 
     if (galleryCard.total !== 0) {
-      const result = await cardConstructor(galleryCard);
+      const result = cardConstructor(galleryCard);
       return result
     }
     throw new Error(console.log("ERROR!"));
@@ -66,7 +66,6 @@ const funcForPromise = async (name, counter) => {
 
 // ! ADDITIONAL FUNCTION
 const cardConstructor = (value) => {
-  console.log(value);
   hitCheck(value);
   let makeCard = value.hits.map((elem) => `<div class="photo-card">
   <a class="gallery__link" href="${elem.webformatURL}"><img src="${elem.webformatURL}" alt="${elem.tags}" loading="lazy" /></a>
