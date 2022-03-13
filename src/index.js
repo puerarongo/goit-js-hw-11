@@ -9,7 +9,6 @@ const formEl = document.querySelector(".search-form");
 const inputEl = document.querySelector(".form__input");
 const galleryEl = document.querySelector(".gallery");
 const moreEl = document.querySelector(".load-more");
-//const buttonEl = document.querySelector(".form__button");
 
 
 let inputValue = null;
@@ -33,7 +32,6 @@ const submitHandler = (event) => {
   }
   
   if (count > 1) {
-    return console.log(26)
   }
   
   moreEl.style.display = "inline";

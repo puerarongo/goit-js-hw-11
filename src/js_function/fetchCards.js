@@ -6,7 +6,6 @@ export const fetchCards = async (name, counter) => {
     &image_type=photo&orientation=horizontal&safesearch=true&page=${counter}&per_page=40`);
     const cards = await responce.json();
 
-    console.log(cards.hits.length)
     if (cards.total !== 0) {
         return cards;
     }
