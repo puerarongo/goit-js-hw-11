@@ -1,5 +1,5 @@
 import "./css/styles.css";
-import { fetchCards } from './js_function/fetchCards';
+import { fetchCards } from './api/fetchCards';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import SimpleLightbox from "simplelightbox";
@@ -14,7 +14,6 @@ const moreEl = document.querySelector(".load-more");
 let inputValue = null;
 let saveValue = null;
 let count = 0;
-
 
 
 // ! FORM FUNCTION
@@ -32,6 +31,7 @@ const submitHandler = (event) => {
   }
   
   if (count > 1) {
+    return
   }
   
   moreEl.style.display = "inline";
@@ -46,12 +46,22 @@ const searchMore = () => {
 };
 
 
-const funcForPromise = (name, counter) => {
-    fetchCards(name, counter)
-        .then(result => cardConstructor(result))
-        .catch(error => Notify.failure("Sorry, there are no images matching your search query. Please try again."))           
-};
+const funcForPromise = async (name, counter) => {
+  try {
+    const galleryCard = await fetchCards(name, counter);
 
+    if (galleryCard.total !== 0) {
+      const result = await cardConstructor(galleryCard);
+      return result
+    }
+    throw new Error(console.log("ERROR!"));
+    
+  }
+  catch (error) {
+    moreEl.style.display = "none";
+    Notify.failure("Sorry, there are no images matching your search query. Please try again."); 
+  }          
+};
 
 
 // ! ADDITIONAL FUNCTION
@@ -89,6 +99,7 @@ const newQ = () => {
   galleryEl.innerHTML = "";
 }
 
+
 const hitCheck = (hits) => {
   if (count === 1) {
     Notify.success(`Hooray! We found ${hits.totalHits} images.`)
@@ -111,7 +122,6 @@ const hitCheck = (hits) => {
       captionDelay: 200,
       captionPosition: "bottom",
   });
-
 
 
 // todo Actions
