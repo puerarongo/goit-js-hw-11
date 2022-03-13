@@ -5,11 +5,11 @@ import { Report } from 'notiflix/build/notiflix-report-aio';
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
+
 const formEl = document.querySelector(".search-form");
 const inputEl = document.querySelector(".form__input");
 const galleryEl = document.querySelector(".gallery");
 const moreEl = document.querySelector(".load-more");
-
 
 let inputValue = null;
 let saveValue = null;
@@ -97,7 +97,7 @@ const newQ = () => {
 
   moreEl.style.display = "none";
   galleryEl.innerHTML = "";
-}
+};
 
 
 const hitCheck = (hits) => {
@@ -127,4 +127,4 @@ const hitCheck = (hits) => {
 // todo Actions
 inputEl.addEventListener("input", inputHandler);
 formEl.addEventListener("submit", submitHandler);
-moreEl.addEventListener("click", searchMore)
+moreEl.addEventListener("click", searchMore);
