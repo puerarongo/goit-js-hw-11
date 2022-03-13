@@ -2,6 +2,8 @@ import "./css/styles.css";
 import { fetchCards } from './js_function/fetchCards';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
+import SimpleLightbox from "simplelightbox";
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const formEl = document.querySelector(".search-form");
 const inputEl = document.querySelector(".form__input");
@@ -59,7 +61,7 @@ const cardConstructor = (value) => {
   console.log(value);
   hitCheck(value);
   let makeCard = value.hits.map((elem) => `<div class="photo-card">
-  <img src="${elem.webformatURL}" alt="${elem.tags}" loading="lazy" />
+  <a class="gallery__link" href="${elem.webformatURL}"><img src="${elem.webformatURL}" alt="${elem.tags}" loading="lazy" /></a>
   <div class="info">
     <p class="info-item">
       <b>Likes - ${elem.likes}</b>
@@ -77,6 +79,8 @@ const cardConstructor = (value) => {
 </div>`).join("");
     
   galleryEl.insertAdjacentHTML("beforeend", makeCard);
+  
+  lightbox.refresh();
 };
 
 
@@ -102,6 +106,13 @@ const hitCheck = (hits) => {
   }
 };
 
+
+// todo Interface
+  const lightbox = new SimpleLightbox(".gallery__link", {
+      captionsData: "alt",
+      captionDelay: 200,
+      captionPosition: "bottom",
+  });
 
 
 

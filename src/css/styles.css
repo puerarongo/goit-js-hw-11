@@ -68,6 +68,12 @@ ul {
   padding: 30px;
 }
 
+.gallery__link {
+  cursor: pointer;
+  height: 290px;
+  width: 350px;
+}
+
 .photo-card {
   margin-right: 20px;
   margin-bottom: 20px;
