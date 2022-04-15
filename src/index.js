@@ -51,8 +51,8 @@ const funcForPromise = async (name, counter) => {
   try {
     const galleryCard = await fetchCards(name, counter);
 
-    if (galleryCard.total !== 0) {
-      const result = cardConstructor(galleryCard);
+    if (galleryCard.data.total !== 0) {
+      const result = cardConstructor(galleryCard.data);
       return result
     }
     throw new Error(console.log("ERROR!"));
