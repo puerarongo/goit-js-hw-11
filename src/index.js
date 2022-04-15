@@ -20,7 +20,7 @@ let count = 0;
 // ! FORM FUNCTION
 
 const inputHandler = (event) => {
-    inputValue = event.target.value;
+  inputValue = event.target.value;
 };
 
 const submitHandler = (event) => {
@@ -39,6 +39,7 @@ const submitHandler = (event) => {
   funcForPromise(inputValue, count);
   saveValue = inputValue;
 };
+
 
 const searchMore = () => {
   count += 1;
@@ -89,6 +90,10 @@ const cardConstructor = (value) => {
   galleryEl.insertAdjacentHTML("beforeend", makeCard);
   
   lightbox.refresh();
+
+  // todo Sccroll
+  const cardHeight = document.firstElementChild.getBoundingClientRect().height;
+  scroll(cardHeight);
 };
 
 
@@ -114,6 +119,10 @@ const hitCheck = (hits) => {
     );
   }
 };
+
+const scroll = (height) => {
+  window.scrollBy({ top: height, behavior: "smooth" });
+}
 
 
 // todo Interface
