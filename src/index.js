@@ -1,5 +1,6 @@
 import "./css/styles.css";
-import { fetchCards } from './api/fetchCards';
+import fetchCards from './api/fetchCards';
+
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import SimpleLightbox from "simplelightbox";
