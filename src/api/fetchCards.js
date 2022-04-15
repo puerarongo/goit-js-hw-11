@@ -10,4 +10,4 @@ const fetchCards = async (name, counter) => {
 };
 
 
-export default fetchCards
+export default fetchCards;

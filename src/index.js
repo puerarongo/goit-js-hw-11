@@ -1,6 +1,7 @@
 import "./css/styles.css";
 import fetchCards from './api/fetchCards';
 
+import { throttle } from 'throttle-debounce';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import { Report } from 'notiflix/build/notiflix-report-aio';
 import SimpleLightbox from "simplelightbox";
@@ -10,11 +11,11 @@ import "simplelightbox/dist/simple-lightbox.min.css";
 const formEl = document.querySelector(".search-form");
 const inputEl = document.querySelector(".form__input");
 const galleryEl = document.querySelector(".gallery");
-const moreEl = document.querySelector(".load-more");
 
 let inputValue = null;
 let saveValue = null;
 let count = 0;
+let total = 0;
 
 
 // ! FORM FUNCTION
@@ -35,16 +36,8 @@ const submitHandler = (event) => {
     return
   }
   
-  moreEl.style.display = "inline";
   funcForPromise(inputValue, count);
   saveValue = inputValue;
-};
-
-
-const searchMore = () => {
-  count += 1;
-
-  funcForPromise(saveValue, count);
 };
 
 
@@ -54,13 +47,12 @@ const funcForPromise = async (name, counter) => {
 
     if (galleryCard.data.total !== 0) {
       const result = cardConstructor(galleryCard.data);
+      total = galleryCard.data.total;
       return result
     }
     throw new Error(console.log("ERROR!"));
-    
   }
   catch (error) {
-    moreEl.style.display = "none";
     Notify.failure("Sorry, there are no images matching your search query. Please try again."); 
   }          
 };
@@ -92,15 +84,13 @@ const cardConstructor = (value) => {
   lightbox.refresh();
 
   // todo Sccroll
-  const cardHeight = document.firstElementChild.getBoundingClientRect().height;
-  scroll(cardHeight);
+  //const cardHeight = document.firstElementChild.getBoundingClientRect().height;
+  //scroll(cardHeight);
 };
 
 
 const newQ = () => {
   count = 1;
-
-  moreEl.style.display = "none";
   galleryEl.innerHTML = "";
 };
 
@@ -111,7 +101,6 @@ const hitCheck = (hits) => {
   }
 
   if (hits.hits.length < 40) {
-    moreEl.style.display = "none";
     Report.warning(
       "Warning!",
       "We're sorry, but you've reached the end of search results.",
@@ -120,10 +109,21 @@ const hitCheck = (hits) => {
   }
 };
 
-const scroll = (height) => {
-  window.scrollBy({ top: height, behavior: "smooth" });
-}
+//const scroll = (height) => {
+//  window.scrollBy({ top: height, behavior: "smooth" });
+//}
 
+
+const infiniteScroll = () => {
+  const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+
+  if (scrollTop + clientHeight >= scrollHeight - 5 && (total === 0 || count * 40 < total)) {
+    console.log("in if")
+
+    count += 1;
+    funcForPromise(saveValue, count);
+  }
+};
 
 // todo Interface
   const lightbox = new SimpleLightbox(".gallery__link", {
@@ -136,4 +136,4 @@ const scroll = (height) => {
 // todo Actions
 inputEl.addEventListener("input", inputHandler);
 formEl.addEventListener("submit", submitHandler);
-moreEl.addEventListener("click", searchMore);
+window.addEventListener("scroll", throttle(300, infiniteScroll))
